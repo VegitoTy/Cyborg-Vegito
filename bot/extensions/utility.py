@@ -13,9 +13,9 @@ class Verifyview(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None)
     
-    @discord.ui.button(label='Agree', custom_id='agree_view', style=discord.ButtonStyle.green)
+    @discord.ui.button(label='Agree', custom_id='agree_view', style=discord.ButtonStyle.green, emoji='✅')
     async def _agree(self, interaction:discord.Interaction, button:discord.ui.Button):
-        pass
+        await interaction.response.send_message(content='Thanks For Agreeing our rules!', ephemeral=True)
 
 class Utility(commands.Cog):
     """Shows All The Utility Commands."""
@@ -56,6 +56,7 @@ class Utility(commands.Cog):
     @_embed.command(name='Verification', description='Send The Verification Embed\nUsage:- &Embed Verification')
     @commands.check_any(commands.has_permissions(administrator=True), commands.is_owner())
     async def _verificationembed(self, ctx:commands.Context):
+        view = Verifyview()
         description = """1. No spamming. This includes begging, copypastas, and text walls
 
 2. No inappropriate content. This includes NSFW material of any kind, excessive profanity, racial slurs, flashing images, and gifs that crash discord clients.
@@ -76,6 +77,7 @@ class Utility(commands.Cog):
 
 10. Do not Mass Ping."""
         embed = discord.Embed(color=0x3498db, title='Rules', description=description)
+        await ctx.send(embed=embed, view=view)
 
     @commands.command(name='Echo', aliases=['echo'], description=f"Make The Bot Send A Message\nUsage:- &Echo [message]")
     @commands.check_any(commands.has_permissions(administrator=True), commands.is_owner())
