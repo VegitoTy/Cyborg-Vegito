@@ -1,6 +1,7 @@
 import discord, json, os, pathlib
 from dotenv import load_dotenv
 from discord.ext import commands
+from bot.extensions.utility import Verifyview
 
 dotenv_path = pathlib.Path('./.env')
 load_dotenv(dotenv_path=dotenv_path)
@@ -27,6 +28,7 @@ class Berserker(commands.Bot):
                 await self.load_extension(extension)
         await self.load_extension('bot.help.cog')
         await self.load_extension('jishaku')
+        self.add_view(Verifyview())
         await bot.tree.sync(guild = discord.Object(id = default_guilds))
     
     async def on_ready(self):
