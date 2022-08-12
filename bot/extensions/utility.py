@@ -40,7 +40,7 @@ class Utility(commands.Cog):
         embed.set_image(url=member.display_avatar)
         await ctx.reply(embed=embed)
 
-    @commands.group(case_insensitive=True, invoke_without_command=True, name='Embed', description=f"Creates A Embed Separate The Title From The Description With |\nUsage:- &Embed Title|Description")
+    @commands.group(aliases=['embed'], case_insensitive=True, invoke_without_command=True, name='Embed', description=f"Creates A Embed Separate The Title From The Description With |\nUsage:- &Embed Title|Description")
     @commands.check_any(commands.has_permissions(administrator=True), commands.is_owner())
     async def _embed(self, ctx:commands.Context, channel:discord.TextChannel, *, text:str):
         """Creates A Embed Separate The Title From The Description With |"""

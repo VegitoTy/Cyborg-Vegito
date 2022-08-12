@@ -50,6 +50,8 @@ class Help(commands.MinimalHelpCommand):
             if not filtered:
                 continue
             emoji = getattr(cog, "COG_EMOJI", None)
+            if cog.qualified_name == 'apps':
+                continue
             options.append(discord.SelectOption(
                 label=cog.qualified_name if cog else "No Category",
                 emoji=emoji,
