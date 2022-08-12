@@ -26,8 +26,8 @@ class AcceptDenyModView(discord.ui.View):
             await interaction.user.send('Timed Out')
             return
         
-        if yesnoreply_content == 'yes': pass
-        elif yesnoreply_content == 'no': return await interaction.user.send('Cancelled')
+        if yesnoreply_content.lower() == 'yes': pass
+        elif yesnoreply_content.lower() == 'no': return await interaction.user.send('Cancelled')
         else: return await interaction.user.send('Invalid Response! Retry')
 
         dmmessage = await interaction.user.send('Please Send The ID Of The User Your Accepting Application Of To Continue...')
@@ -73,8 +73,8 @@ class AcceptDenyModView(discord.ui.View):
             await interaction.user.send('Timed Out')
             return
         
-        if yesnoreply_content == 'yes': pass
-        elif yesnoreply_content == 'no': return await interaction.user.send('Cancelled')
+        if yesnoreply_content.lower() == 'yes': pass
+        elif yesnoreply_content.lower() == 'no': return await interaction.user.send('Cancelled')
         else: return await interaction.user.send('Invalid Response! Retry')
 
         dmmessage = await interaction.user.send('Please Send The ID Of The User Your Denying Application Of To Continue...')
@@ -123,8 +123,8 @@ class AcceptDenyFruitStockerView(discord.ui.View):
             await interaction.user.send('Timed Out')
             return
         
-        if yesnoreply_content == 'yes': pass
-        elif yesnoreply_content == 'no': return await interaction.user.send('Cancelled')
+        if yesnoreply_content.lower() == 'yes': pass
+        elif yesnoreply_content.lower() == 'no': return await interaction.user.send('Cancelled')
         else: return await interaction.user.send('Invalid Response! Retry')
 
         dmmessage = await interaction.user.send('Please Send The ID Of The User Your Accepting Application Of To Continue...')
@@ -170,8 +170,8 @@ class AcceptDenyFruitStockerView(discord.ui.View):
             await interaction.user.send('Timed Out')
             return
         
-        if yesnoreply_content == 'yes': pass
-        elif yesnoreply_content == 'no': return await interaction.user.send('Cancelled')
+        if yesnoreply_content.lower() == 'yes': pass
+        elif yesnoreply_content.lower() == 'no': return await interaction.user.send('Cancelled')
         else: return await interaction.user.send('Invalid Response! Retry')
 
         dmmessage = await interaction.user.send('Please Send The ID Of The User Your Denying Application Of To Continue...')
@@ -207,9 +207,9 @@ class StaffAppsView(discord.ui.View):
     @discord.ui.button(label='Moderator', custom_id='moderator_app', emoji='<:moderator:1007613892974878741>')
     async def mod_app(self, interaction:discord.Interaction, button:discord.ui.Button):
         view = AcceptDenyModView()
-        role = discord.utils.get(interaction.guild.roles, id=1005038327382159501)
+        role = discord.utils.get(interaction.guild.roles, id=1005038325578616863)
         if not role in interaction.user.roles:
-            await interaction.response.send_message(content='You Need To Be Atleast Level 5 To Apply For Moderator!', ephemeral=True)
+            await interaction.response.send_message(content='You Need To Be Atleast Level 10 To Apply For Moderator!', ephemeral=True)
             return
         await interaction.response.send_message(content='Check Your Dm!', ephemeral=True)
         questions = [
@@ -255,6 +255,12 @@ class StaffAppsView(discord.ui.View):
     @discord.ui.button(label='Fruit Stocker', custom_id='fruit_stocker_app', emoji='🍎')
     async def fruit_stocker_app(self, interaction:discord.Interaction, button:discord.ui.Button):
         view = AcceptDenyFruitStockerView()
+
+        role = discord.utils.get(interaction.guild.roles, id=1005038327382159501)
+        if not role in interaction.user.roles:
+            await interaction.response.send_message(content='You Need To Be Atleast Level 5 To Apply For Fruit Stocker!', ephemeral=True)
+            return
+
         await interaction.response.send_message(content='Check Your DM!', ephemeral=True)
 
         questions = [
