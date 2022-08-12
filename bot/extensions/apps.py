@@ -303,9 +303,11 @@ class Apps(commands.Cog):
     async def _sa(self, ctx:commands.Context):
         "Sends The Staff Applications"
 
+        view=StaffAppsView()
+
         await ctx.message.delete()
-        apps=discord.Embed(title='Applications', description=f'> <:moderator:1007613892974878741> Click On The Moderator Button To Apply For Moderator!\n> 🍎 Click On The Fruit Stocker Button To Apply For A Fruit Stocker!', color=0x3498db)
-        await ctx.send(embed=apps)
+        apps=discord.Embed(title='Applications', description=f'> <:moderator:1007613892974878741> Click On The Moderator Button To Apply For Moderator!\n\n> 🍎 Click On The Fruit Stocker Button To Apply For A Fruit Stocker!', color=0x3498db)
+        await ctx.send(embed=apps, view=view)
 
 async def setup(bot:commands.Bot) -> None:
     await bot.add_cog(
