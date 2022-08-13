@@ -65,6 +65,7 @@ a
 
         env = {
             'bot': ctx.bot,
+            'guild': ctx.guild,
             'discord': discord,
             'commands': commands,
             'ctx': ctx,
@@ -77,7 +78,7 @@ a
     
     @commands.command(name='Timeout', aliases=['timeout', 'To', 'to'], description=f"Times Out A Member.\nUsage:- &To [member] [duration] [reason=None]")
     @commands.check_any(commands.has_permissions(moderate_members=True), commands.is_owner())
-    async def _timeout(self, ctx:commands.Context, member:discord.Member, duration:str='2h', reason:str='No Reason Provided'):
+    async def _timeout(self, ctx:commands.Context, member:discord.Member, duration:str='2h', *, reason:str='No Reason Provided'):
         "Times Out A Member."
 
         if ctx.author.top_role < member.top_role:
@@ -106,7 +107,7 @@ a
     
     @commands.command(name='RemoveTimeout', aliases=['removetimeout', 'Rto', 'rto'], description=f"Removes Timeout From A Member.\nUsage:- &Rto [member] [reason=None]")
     @commands.check_any(commands.has_permissions(moderate_members=True), commands.is_owner())
-    async def _rto(self, ctx:commands.Context, member:discord.Member, reason:str='No Reason Provided'):
+    async def _rto(self, ctx:commands.Context, member:discord.Member, *, reason:str='No Reason Provided'):
         "Removes Timeout From A Member."
 
         if ctx.author.top_role < member.top_role:
@@ -121,7 +122,7 @@ a
 
     @commands.command(name='Ban', aliases= ['ban', 'b'], description=f"Bans A User. Whether Or Not The User Is In The Server Or Not\nUsage:- &Ban [user] [reason=None]")
     @commands.check_any(commands.has_permissions(kick_members=True, ban_members=True), commands.is_owner())
-    async def _ban(self, ctx:commands.Context, user:discord.User, reason:str='No Reason Provided'):
+    async def _ban(self, ctx:commands.Context, user:discord.User, *, reason:str='No Reason Provided'):
         "Bans A User. Whether Or Not The User Is In The Server Or Not"
 
         id = user.id
@@ -147,19 +148,22 @@ a
     
     @commands.command(name='Unban', aliases=['unban'], description=f"Unban A User.\nUsage:- &Unban [user] [reason=None]")
     @commands.check_any(commands.has_permissions(ban_members=True), commands.is_owner())
-    async def _unban(self, ctx:commands.Context, *, user:discord.User, reason:str="No Reason Provided"):
+    async def _unban(self, ctx:commands.Context, *, user:discord.User):
         "Unban A User."
 
-        await ctx.guild.unban(user, reason=reason)
+        await ctx.guild.unban(user, reason=f'By {ctx.author}')
         await ctx.send(f'Unbanned {user}')
     
     @commands.command(name='Kick', aliases=['kick', 'k'], description=f"Kicks A Member.\nUsage:- &Kick [member] [reason=None]")
     @commands.check_any(commands.has_permissions(kick_members=True), commands.is_owner())
-    async def _kick(self, ctx:commands.Context, user:discord.Member, reason:str='No Reason Provided'):
+    async def _kick(self, ctx:commands.Context, user:discord.Member, *, reason:str='No Reason Provided'):
         "Kicks A Member."
 
         if ctx.author.top_role > user.top_role:
-            await user.send(f'You have been kicked from `{ctx.guild}` for `{reason}`')
+            try:
+                await user.send(f'You have been kicked from `{ctx.guild}` for `{reason}`')
+            except:
+                pass
             await user.kick(reason=f'{reason}, Kicked by {ctx.author}')
             await ctx.send(f'{user} has been kicked.')
         else:

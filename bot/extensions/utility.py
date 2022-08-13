@@ -73,9 +73,15 @@ class Utility(commands.Cog):
 
 8. Do not bait members into breaking the rules.
 
-9. When DM’ing mods/admins for help, make your message exactly what you need help with. Don’t send a message saying “hi” and expect a response.
+9. When DM'ing mods/admins for help, make your message exactly what you need help with. Don’t send a message saying “hi” and expect a response.
 
-10. Do not Mass Ping."""
+10. Do not Mass Ping.
+
+11. Do not beg for any role, you will be punished if you are found begging for it if you want any role (except mod, staff and that sort of roles) then you can dm an admin and request it ONCE. Your request can be denied~
+
+12. Spamming can mean many things, examples are sending many messages within a short period of time, sending text walls (messages that take space on a lot of the screen), chaining lyrics, sending attachments repetitively etc. Making the overall experience in the chat bad can also be considered spam.
+
+13. Anything Related To NSFW Is Not Tolerable. It Would Lead To A Unappealable Ban. Not Even Dating Is Allowed Here."""
         embed = discord.Embed(color=0x3498db, title='Rules', description=description)
         await ctx.send(embed=embed, view=view)
 
